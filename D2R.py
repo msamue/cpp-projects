@@ -50,7 +50,7 @@ if __name__ == "__main__" :
 	label2.grid(row = 4, column = 0)
 
 	root.title("D2R")
-	root.iconbitmap("C:/Users/mussi/Downloads/1490886319-24-dna_82481.ico")
+	root.iconbitmap("1490886319-24-dna_82481.ico")
 	text1_field = Text(root, height = 5, width = 25)
 	text2_field = Text(root, height = 5, width = 25)
 		
