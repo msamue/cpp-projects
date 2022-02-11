@@ -1,3 +1,6 @@
+#DNA to RNA
+#Author: msamue@github.com
+
 from tkinter import *
 
 def convert():
