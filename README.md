@@ -1,5 +1,1 @@
-# D2R - DNA to RNA
-A simple program that transcribes DNA nucleotides to RNA.  
-To use, simply run the exe file (Windows only).
-### To Do:
-> Add Linux and MacOS compatibility  
+#Random Python and C++ Projects
