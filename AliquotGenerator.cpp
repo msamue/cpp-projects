@@ -100,8 +100,14 @@ int main() {
             cout << "s(" << posint2 << ") = " << genRSigSeries(posint2) << " = " << rSigma(posint2) << endl;
         } else {
             cout << "?amicable ("  << posint1 << ", " << posint2 << ") = false"<< endl;
-            cout << "s(" << posint1 << ") = " << genRSigSeries(posint1) << " = " << rSigma(posint1) << endl;
-            cout << "s(" << posint2 << ") = " << genRSigSeries(posint2) << " = " << rSigma(posint2) << endl;
+            if (rSigma(posint1) == 1) {
+                cout << "s(" << posint1 << ") = " << rSigma(posint1) << endl;
+            } if (rSigma(posint2) == 1) {
+                cout << "s(" << posint2 << ") = " << rSigma(posint2) << endl;
+            } else {
+                cout << "s(" << posint1 << ") = " << genRSigSeries(posint1) << " = " << rSigma(posint1) << endl;
+                cout << "s(" << posint2 << ") = " << genRSigSeries(posint2) << " = " << rSigma(posint2) << endl;
+            }
         }
     }
     cout << endl;
@@ -116,7 +122,6 @@ int main() {
         string sequence;
         aliquot(n, sequence, length);
         cout << "aliquot{" << impint << "} = " << sequence << endl;
-        cout << "length: " << length << endl;
-        return 0;
+        cout << "length: " << length;
     }
 }
