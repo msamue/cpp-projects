@@ -1,2 +1,1 @@
-### Python and C++ Projects
-Python and mostly C++ projects from classes
+Mostly C++ projects from classes, along with a few Python projects
