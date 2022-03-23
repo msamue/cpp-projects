@@ -1,5 +1,19 @@
+/**
+ * This program computes the sum of all proper divisors of a proper integer, if
+ * two integers are amicable, and generates aliquot sequences.
+ * @author Mussie Samuel
+ * <pre>
+ * Date: 3/23/2022
+ * CSC 1253 Project # 3 Section # 2
+ * Instructor: Dr. Duncan
+ * File: AliquotGenerator.cpp
+ * </pre>
+*/
+
+
 #include <iostream>
 #include <string>
+#include <sstream>
 
 using namespace std;
 
@@ -22,7 +36,7 @@ string genRSigSeries(long n) {
    return strsum;
 }
 
-void aliquot(long n, string sequence, long length) {
+void aliquot(long n, string& sequence, long& length) {
     sequence = to_string(n);
     length = 1;
     while (n > 0) {
@@ -46,11 +60,9 @@ int main() {
             cout << "s(" << number << ") = " << number << endl;
             cout << number << " is a perfect number." <<endl;
         } else if (rSigma(number) < number) {
-            //genRSigSeries here
             cout << "s(" << number << ") < " << number << endl;
             cout << number << " is a deficient number." << endl;
         } else if (rSigma(number) > number) {
-            //genRSigSeries here
             cout << "s(" << number << ") > " << number << endl;
             cout << number << " is an abundant number." << endl;
         }
@@ -82,7 +94,7 @@ int main() {
     } else {
         long length = 1;
         string sequence = "";
-        cout << "aliquot{" << impint << "} = " << endl;
+        cout << "aliquot{" << impint << "} = ";
         cout << "length: ";
     }
 }
