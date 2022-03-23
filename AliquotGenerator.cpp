@@ -10,13 +10,18 @@
  * </pre>
 */
 
-
 #include <iostream>
 #include <string>
 #include <sstream>
 
 using namespace std;
 
+/**
+* Computes the aliquot sum of the specified number
+* @param num an integer
+* @return the aliquot sum of the specified number
+* if it is positive; otherwise, -1;
+*/
 long rSigma(long n) {
    int sum = 0;
    for (int i = 1; i < n; i++){
@@ -26,6 +31,13 @@ long rSigma(long n) {
    return sum;
 }
 
+/**
+* Generates the string representation of a series whose terms
+* are increasing and consist of proper divisors of the specified number.
+* @param num an integer
+* @return a string representation of the series when num is
+* greater than 1, "0" when num is 1; otherwise "nan"
+*/
 string genRSigSeries(long n) {
    string strsum = "1";
     for (int i = 2; i < n; i++) { 
@@ -36,11 +48,20 @@ string genRSigSeries(long n) {
    return strsum;
 }
 
+/**
+* Generates the aliquot sequence of a number and determines the
+* length of the sequence.
+* @param num an integer
+* @param sequence the aliquot sequence of the specified number when
+* num is positive; otherwise "nan".
+* @param length the length of the aliquot sequence of the specified
+* number when num is positive; otherwise 0
+*/
 void aliquot(long n, string& sequence, long& length) {
     sequence = to_string(n);
     length = 1;
     while (n > 0) {
-    sequence += ("," + rSigma(n));
+    sequence += (", " + to_string(rSigma(n)));
     n = rSigma(n);
     length++;
     }
@@ -88,13 +109,15 @@ int main() {
     
     cout << "Enter an imperfect positive integer -> ";
     cin >> impint;
-    int i = 1;
     if (impint <= 0 || rSigma(impint) == impint) {
         cout << "ERROR: The input must be an imperfect positive integer.";
     } else {
-        long length = 1;
-        string sequence = "";
-        cout << "aliquot{" << impint << "} = ";
-        cout << "length: ";
+        long n = impint;
+        long length;
+        string sequence;
+        aliquot(n, sequence, length);
+        cout << "aliquot{" << impint << "} = " << sequence << endl;
+        cout << "length: " << length << endl;
+        return 0;
     }
 }
