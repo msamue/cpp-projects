@@ -22,11 +22,11 @@ string genRSigSeries(long n) {
    return strsum;
 }
 
-void aliquot(long n, string& sequence, long& length) {
-    string series = "1";
-    series = to_string(n);
-    while (n > 0); {
-    series += ("," + rSigma(n));
+void aliquot(long n, string sequence, long length) {
+    sequence = to_string(n);
+    length = 1;
+    while (n > 0) {
+    sequence += ("," + rSigma(n));
     n = rSigma(n);
     length++;
     }
@@ -72,17 +72,17 @@ int main() {
             cout << "s(" << posint2 << ") = " << genRSigSeries(posint2) << " = " << rSigma(posint2) << endl;
         }
     }
-    
     cout << endl;
     
     cout << "Enter an imperfect positive integer -> ";
     cin >> impint;
-    if (impint <= 0) {// || not imperfect pos integer) {
+    int i = 1;
+    if (impint <= 0 || rSigma(impint) == impint) {
         cout << "ERROR: The input must be an imperfect positive integer.";
     } else {
-        int length = 1;
-        string series = "1";
-        cout << "aliquot{" << impint << "} = " << aliquot(impint, series, length);
+        long length = 1;
+        string sequence = "";
+        cout << "aliquot{" << impint << "} = " << endl;
         cout << "length: ";
     }
 }
