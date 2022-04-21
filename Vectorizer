@@ -1,131 +1,244 @@
-/**
- * Header here
- * https://www.chegg.com/homework-help/questions-and-answers/main-function-c-write-main-performs-tasks--simplifying-assumption-user-inputs-valid-expres-q32468337
-*/
-
-#include <iostream>
-#include <string>
+#include<iostream>
 #include <cmath>
+#include <string>
+
 using namespace std;
 
 /**
- * Gives the dimension of the specified vector
- * @param v a vector in dimension-coordinates format
- * @return the dimension of this vector
+* Gives a coordinate with the specified subscript of avector
+* @param v a dimension-coordinates array represenattio of avector
+* @return the specified coordinate of v or NAN when
+* subscript < 0 or subscript is greater than the dimesion of v
 */
-//int dim(const double v[]) {
+double getCoordinate(const double v[], int subscript) {
+   return v[subscript];
+}
+
+/**
+* Gives the dimension of the specified vector
+* @param v a vector in dimension-coordinates format
+* @return the dimension of this vector
+*/
+int dim(const double v[]) {
+   return getCoordinate(v, 0);
+}
 
 /**
 * Gives a string representation of this vector in the form
-* <x1, x2, ..., xn>, where x1 is the second element of the array,
+* <x1, x2...xn>, where x1 is the second element of the array,
 * x2, the second element of the array, etc and n is the dimension
-* of the vector and the first element of the array.
-* @param v a dimension-coordinates array representation of a
-* vector.
+* of the vector and the first element of the array
+* @param v a dimension-coordinates array represenattion of a vector
 * @return a string representation of the specified vector
 */
 string vtos(const double v[]) {
-    if (v != NULL) {
-        string str = "<";
-        for (int i = 1; i < v[0]; i++) {
-            if (i == v[0] - 1) {
-                str += to_string(v[i]) + ", ";
-            } else {
-                return "empty";
-            }
-        }
-    }
+
+   if (v != NULL) {
+       string str = " < ";
+       for (int i = 1; i < v[0]; i++) {
+           if (i == v[0] - 1)
+               str += to_string(v[i]);
+           else
+               str += to_string(v[i]) + ", ";
+       }
+       str += " >\n";
+
+       return str;
+   } else
+       return "empty";
 }
 
 /**
 * Computes the length of this vector
-* @param v a dimension-coordinates representation of a vector
-* @return the length of the specified vector
+* @param V a dimension-coordinates array representation of a vector
+* @return the length of the specififed vector
 */
 double length(const double v[]) {
-    double m = 0; //maybe replace m with x or something
-    for (int i = 1; i < v[0]; i++) {
-        m += v[i] * v[i];
-    }
-    return sqrt(m);
+   double x = 0;
+   for (int i = 1; i < v[0]; i++) {
+       x += v[i] * v[i];
+   }
+   return sqrt(x);
 }
 
 /**
 * Determines whether two vectors are equal; two vectors are
-* equal if they have the same dimension and their
+* equal if they have tha same dimension and their
 * corresponding coordinates are equal.
 * @param v1 a vector
 * @param v2 a vector
 * @return true if the specified vectors are equal;
 * otherwise, false
 */
-bool equal (const double v1[], const double v2[]) {
-    int size = dim(v1);
-    bool s = true;
-    if (dim(v1) == dim(v2)) {
-        for (int i = 1; i < size; i++){
-            if (v1[i] != v2[i]) {
-                s = false;
-                break;
-            }
-        }
-    } else {
-        s = false;
-    }
-    return s;
+bool equal(const double v1[], const double v2[]) {
+   int size = dim(v1);
+   bool b = true;
+   if (dim(v1) == dim(v2)) {
+       for (int i = 1; i < size; i++) {
+           if (v1[i] != v2[i]) {
+               b = false;
+               break;
+           }
+       }
+   } else
+       b = false;
+   return b;
 }
 
 /**
-* Computes the sum of the specified vectors
+*Computes the sum of the specififed vectors
 * @param v1 a vector
 * @param v2 a vector
 * @return the sum of the specified vectors if they have the same
 * dimension or NULL, otherwise
 */
-double* add(const double v1[], const double v2[])
+double* add(const double v1[], const double v2[]) {
+   if (dim(v1) == dim(v2)) {
+       int size = dim(v1);
+       double* vv = new double[size];
+       vv[0] = v1[0];
+       for (int i = 1; i < size; i++) {
+           vv[i] = v1[i] + v2[i];
+       }
+       return vv;
+   } else
+       return NULL;
+}
 
 /**
-* Computes the difference of the specified vectors
+* Computes the difference of the specififed vectors
 * @param v1 a vector
 * @param v2 a vector
 * @return the v1-v2 if the vectors have the same
 * dimension or NULL, otherwise
 */
-double* sub(const double v1[], const double v2[])
+double* sub(const double v1[], const double v2[]) {
+   if (dim(v1) == dim(v2)) {
+       int size = dim(v1);
+       double* vv = new double[size];
+       vv[0] = v1[0];
+       for (int i = 1; i < size; i++) {
+           vv[i] = v1[i] - v2[i];
+       }
+       return vv;
+   } else
+       return NULL;
+}
 
 /**
-* Computes the dot product of two vectors
+*Computes the dot product of the specififed vectors
 * @param v1 a vector
 * @param v2 a vector
-* @return the dot product of v1 and v2 if they have the same
-* dimension; otherwise, NAN
+* @return the sum of the specified vectors if they have the same
+* dimension or NULL, NAN
 */
-double dot(const double v1[], const double v2[])
+double dot(const double v1[], const double v2[]) {
+   if (dim(v1) == dim(v2)) {
+       int size = dim(v1);
+       double product = 0;
+       for (int i = 1; i < size; i++) {
+           product += v1[i] * v2[i];
+       }
+       return product;
+   } else
+       return NAN;
+}
 
 /**
-* Computes the product of a vector and a number (scalar)
-* @param v a vector
-* @param n a number
-* @return a vector whose coordinates are those of v, each
-* multiplied by n; that is, <nv1, nv2, nv3,...,nvn>
+*Computes the product of the specififed vector and a number(scalar)
+* @param v1 a vector
+* @param n a integer
+* @return the vector with values v1..vn multiplies by n
 */
-double* mult(const double v[], double n)
+double* mul(const double v1[], double n) {
+   int size = dim(v1);
+   double* vv = new double[size];
+   vv[0] = v1[0];
+   for (int i = 1; i < size; i++) {
+       vv[i] = v1[i] + n;
+   }
+   return vv;
+}
 
 
 
 
 
 int main() {
-    int n;
-    cout << "Enter the dimension of three vectors -> ";
-    cin >> n;
-    n = n + 1;
-    
-    double v1[n], v2[n], v3[n];
-    double *v1 = new double[n];
-    double *v2 = new double[n];
-    double *v3 = new double[n];
-    
-    cout << "\n Enter the coordinates of v1 ->";
-}
 
+   int n;
+   cout << "Enter the dimension of three vectors -> ";
+   cin >> n;
+   n = n + 1;
+
+//double v1[n], v2[n], v3[n];
+   double *v1 = new double[n];
+   double *v2 = new double[n];
+   double *v3 = new double[n];
+
+   cout << "Enter the coordinates of v1 -> ";
+   v1[0] = n;
+   for (int i = 1; i < n; i++) {
+       cin >> v1[i];
+   }
+
+   cout << "Enter the coordinates of v2 -> ";
+   v2[0] = n;
+   for (int i = 1; i < n; i++) {
+       cin >> v2[i];
+   }
+
+   cout << "Enter the coordinates of v3 -> ";
+   v3[0] = n;
+   for (int i = 1; i < n; i++) {
+       cin >> v3[i];
+   }
+
+   cout << "v1 = " << vtos(v1);
+   cout << "v2 = " << vtos(v2);
+   cout << "v3 = " << vtos(v3);
+
+   double* v12 = new double[n];
+   v12 = add(v1, v2);
+
+   cout << "v1 + v2 = " << vtos(v12);
+
+   cout << "(v2 + v3) * v1 = " << dot(add(v2, v3), v1) << endl;
+
+   cout << "| v2 - v3 | = " << length(sub(v2, v3)) << endl;
+
+   cout << "v1 * v2 = " << dot(v1, v2) << " and | v2 || v1 |="
+           << length(v2) * length(v1) << endl;
+   cout << endl;
+
+   cout << "Enter the dimension of three additional vectores ->" << endl;
+   int n2;
+   cin >> n2;
+   n2 = n2 + 1;
+   
+   double *v4 = new double[n2];
+   double *v5 = new double[n2];
+   double *v6 = new double[n2];
+
+   cout << "Enter the coordinates of v4 -> ";
+   v4[0] = n2;
+   for (int i = 1; i < n2; i++) {
+       cin >> v4[i];
+   }
+
+   cout << "Enter the coordinates of v5 -> ";
+   v5[0] = n2;
+   for (int i = 1; i < n2; i++) {
+       cin >> v5[i];
+   }
+
+   cout << "Enter the coordinates of v6 -> ";
+   v6[0] = n2;
+   for (int i = 1; i < n2; i++) {
+       cin >> v6[i];
+   }
+
+   cout << "v4 = " << vtos(v4);
+   cout << "v5 = " << vtos(v5);
+   cout << "v6 = " << vtos(v6);
+}
