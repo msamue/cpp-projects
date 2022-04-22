@@ -1,18 +1,22 @@
+/**
+* This program represents vectors in dimension-coordinates format and does various
+* vector calcations and comparisons.
+* @author Mussie Samuel
+* <pre>
+* Date: 4/21/2022
+* Course: CSC 1253 section 2 <br>
+* Programming Project #: 4 <br>
+* Instructor: Dr. Duncan <br>
+* File: VectorManipulator.cpp
+* </pre>
+*/
+
 #include<iostream>
 #include <cmath>
 #include <string>
+#include <sstream>
 
 using namespace std;
-
-/**
-* Gives a coordinate with the specified subscript of avector
-* @param v a dimension-coordinates array represenattio of avector
-* @return the specified coordinate of v or NAN when
-* subscript < 0 or subscript is greater than the dimesion of v
-*/
-double getCoordinate(const double v[], int subscript) {
-   return v[subscript];
-}
 
 /**
 * Gives the dimension of the specified vector
@@ -20,45 +24,39 @@ double getCoordinate(const double v[], int subscript) {
 * @return the dimension of this vector
 */
 int dim(const double v[]) {
-   return getCoordinate(v, 0);
+   return v[0];
 }
 
 /**
 * Gives a string representation of this vector in the form
-* <x1, x2...xn>, where x1 is the second element of the array,
+* <x1, x2,..., xn>, where x1 is the second element of the array,
 * x2, the second element of the array, etc and n is the dimension
-* of the vector and the first element of the array
-* @param v a dimension-coordinates array represenattion of a vector
+* of the vector and the first element of the array.
+* @param v a dimension-coordinates array representation of a vector
 * @return a string representation of the specified vector
 */
 string vtos(const double v[]) {
-
-   if (v != NULL) {
-       string str = " < ";
-       for (int i = 1; i < v[0]; i++) {
-           if (i == v[0] - 1)
-               str += to_string(v[i]);
-           else
-               str += to_string(v[i]) + ", ";
-       }
-       str += " >\n";
-
-       return str;
-   } else
-       return "empty";
+    stringstream sout;
+    sout << "<" << v[1];
+    int dim = v[0];
+    for (int i = 2; i < dim; i++) {
+        sout << ", " << v[i];
+    }
+    sout << ">";
+    return sout.str();
 }
 
 /**
 * Computes the length of this vector
-* @param V a dimension-coordinates array representation of a vector
-* @return the length of the specififed vector
+* @param v a dimension-coordinates array representation of a vector
+* @return the length of the specified vector
 */
 double length(const double v[]) {
-   double x = 0;
+   double sum = 0;
    for (int i = 1; i < v[0]; i++) {
-       x += v[i] * v[i];
+       sum += v[i] * v[i];
    }
-   return sqrt(x);
+   return sqrt(sum);
 }
 
 /**
@@ -86,7 +84,7 @@ bool equal(const double v1[], const double v2[]) {
 }
 
 /**
-*Computes the sum of the specififed vectors
+*Computes the sum of the specified vectors
 * @param v1 a vector
 * @param v2 a vector
 * @return the sum of the specified vectors if they have the same
@@ -95,18 +93,18 @@ bool equal(const double v1[], const double v2[]) {
 double* add(const double v1[], const double v2[]) {
    if (dim(v1) == dim(v2)) {
        int size = dim(v1);
-       double* vv = new double[size];
-       vv[0] = v1[0];
+       double* newv = new double[size];
+       newv[0] = v1[0];
        for (int i = 1; i < size; i++) {
-           vv[i] = v1[i] + v2[i];
+           newv[i] = v1[i] + v2[i];
        }
-       return vv;
+       return newv;
    } else
        return NULL;
 }
 
 /**
-* Computes the difference of the specififed vectors
+* Computes the difference of the specified vectors
 * @param v1 a vector
 * @param v2 a vector
 * @return the v1-v2 if the vectors have the same
@@ -115,22 +113,22 @@ double* add(const double v1[], const double v2[]) {
 double* sub(const double v1[], const double v2[]) {
    if (dim(v1) == dim(v2)) {
        int size = dim(v1);
-       double* vv = new double[size];
-       vv[0] = v1[0];
+       double* newv = new double[size];
+       newv[0] = v1[0];
        for (int i = 1; i < size; i++) {
-           vv[i] = v1[i] - v2[i];
+           newv[i] = v1[i] - v2[i];
        }
-       return vv;
+       return newv;
    } else
        return NULL;
 }
 
 /**
-*Computes the dot product of the specififed vectors
+*Computes the dot product of two vectors
 * @param v1 a vector
 * @param v2 a vector
-* @return the sum of the specified vectors if they have the same
-* dimension or NULL, NAN
+* @return the dot product of the v1 and v2 if they have the same
+* dimension; otherwise, NAN
 */
 double dot(const double v1[], const double v2[]) {
    if (dim(v1) == dim(v2)) {
@@ -145,36 +143,31 @@ double dot(const double v1[], const double v2[]) {
 }
 
 /**
-*Computes the product of the specififed vector and a number(scalar)
+*Computes the product of a vector and a number(scalar)
 * @param v1 a vector
-* @param n a integer
-* @return the vector with values v1..vn multiplies by n
+* @param n a number
+* @return a vector whose coordinates are those of v, each
+* multiplied by n; that is, <nv1, nv2, nv3,..., nvn>
 */
-double* mul(const double v1[], double n) {
+double* mult(const double v1[], double n) {
    int size = dim(v1);
-   double* vv = new double[size];
-   vv[0] = v1[0];
+   double* newv = new double[size];
+   newv[0] = v1[0];
    for (int i = 1; i < size; i++) {
-       vv[i] = v1[i] + n;
+       newv[i] = v1[i] * n;
    }
-   return vv;
+   return newv;
 }
 
-
-
-
-
 int main() {
-
    int n;
    cout << "Enter the dimension of three vectors -> ";
    cin >> n;
    n = n + 1;
 
-//double v1[n], v2[n], v3[n];
-   double *v1 = new double[n];
-   double *v2 = new double[n];
-   double *v3 = new double[n];
+   double* v1 = new double[n];
+   double* v2 = new double[n];
+   double* v3 = new double[n];
 
    cout << "Enter the coordinates of v1 -> ";
    v1[0] = n;
@@ -194,24 +187,16 @@ int main() {
        cin >> v3[i];
    }
 
-   cout << "v1 = " << vtos(v1);
-   cout << "v2 = " << vtos(v2);
-   cout << "v3 = " << vtos(v3);
+   cout << "\nv1 = " << vtos(v1) << endl;
+   cout << "v2 = " << vtos(v2) << endl;
+   cout << "v3 = " << vtos(v3) << endl;
 
-   double* v12 = new double[n];
-   v12 = add(v1, v2);
-
-   cout << "v1 + v2 = " << vtos(v12);
-
+   cout << "\nv1 + v2 = " << vtos(add(v1, v2)) << endl;
    cout << "(v2 + v3) * v1 = " << dot(add(v2, v3), v1) << endl;
-
-   cout << "| v2 - v3 | = " << length(sub(v2, v3)) << endl;
-
-   cout << "v1 * v2 = " << dot(v1, v2) << " and | v2 || v1 |="
-           << length(v2) * length(v1) << endl;
-   cout << endl;
-
-   cout << "Enter the dimension of three additional vectores ->" << endl;
+   cout << "|v2 - v3| = " << length(sub(v2, v3)) << endl;
+   cout << "v1*v2 = " << dot(v1, v2) << " and |v2||v1| = " << length(v2) * length(v1) << endl;
+   
+   cout <<"\nEnter the dimension of three additional vectors -> ";
    int n2;
    cin >> n2;
    n2 = n2 + 1;
@@ -238,7 +223,19 @@ int main() {
        cin >> v6[i];
    }
 
-   cout << "v4 = " << vtos(v4);
-   cout << "v5 = " << vtos(v5);
-   cout << "v6 = " << vtos(v6);
+   cout << "\nv4 = " << vtos(v4) << endl;
+   cout << "v5 = " << vtos(v5) << endl;
+   cout << "v6 = " << vtos(v6) << endl;
+   if (dot(add(v5, v6), v4) == (dot(v4, v5) + dot(v4, v6))) {
+       cout << "\nv4 *( v5 + v6 ) = v4*v5 + v4*v6" << endl;
+   } else {
+       cout << "\nv4 *( v5 + v6 ) <> v4*v5 + v4*v6" << endl;
+   }
+   cout << "(v4+v5) / | v4+v5 | = " << vtos(mult((add(v4, v5)), 1/(length(add(v4, v5))))) << endl;
+   cout << "v5/|v5+v6| + v6/|v5+v6| = " << vtos(add(mult(v5, 1/length(add(v5, v6))), mult(v6, 1/length(add(v5, v6))))) << endl;
+   if (vtos(mult((add(v4, v5)), 1/(length(add(v4, v5))))) == vtos(add(mult(v5, 1/length(add(v5, v6))), mult(v6, 1/length(add(v5, v6)))))) {
+       cout << "(v4+v5) / | v4+v5 | = v5/|v5+v6| + v6/|v5+v6";
+   } else {
+       cout << "(v4+v5) / | v4+v5 | <> v5/|v5+v6| + v6/|v5+v6|";
+   }
 }
