@@ -1,5 +1,6 @@
 /**
- * This program lets the user assign coefficients in a quadratic equation, then displays the discriminant, axis of symmetry, vertex, y-intercept and roots of the equation.
+ * This program lets the user assign coefficients in a quadratic equation, then displays the
+ * discriminant, axis of symmetry, vertex, y-interceptand roots of the equation.
  * @author msamue@github.com
  * Date: 02/21/2022
  */
