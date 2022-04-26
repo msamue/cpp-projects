@@ -1,10 +1,7 @@
 /**
  * This program lets the user assign coefficients in a quadratic equation, then displays the discriminant, axis of symmetry, vertex, y-intercept and roots of the equation.
- * @author Mussie Samuel
+ * @author msamue@github.com
  * Date: 02/21/2022
- * CSC 1253 Project #1
- * Instructor: Dr. Duncan
- * File: quadsolv.cpp
  */
 
 #include <iostream>
