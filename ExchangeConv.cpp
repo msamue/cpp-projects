@@ -9,14 +9,15 @@
 using namespace std;
 
 int main () {
+    label:
     string inputCur, outputCur;
     double inputAmount, outputAmount;
-    cout << "Enter input currency type USD, GBP, EUR, or JPY -> ";
+    cout << "Enter input currency type USD, GBP, EUR, or JPY:  ";
     cin >> inputCur;
     
     cout << "\nEnter amount: ";
     cin >> inputAmount;
-    cout << "\nEnter output currency type USD, GBP, EUR, or JPY -> ";
+    cout << "\nEnter output currency type USD, GBP, EUR, or JPY:  ";
     cin >> outputCur;
     cout << endl;
     
@@ -35,7 +36,6 @@ int main () {
             return 0;
         }
     
-    
     } else if (inputCur == "GBP" || inputCur == "gbp"){
         if (outputCur == "GBP" || outputCur == "gbp") {
             cout << "£" << inputAmount << " <---> " << "£" << outputAmount;
@@ -49,7 +49,6 @@ int main () {
             cout << "Invalid inputs";
             return 0;
         }
-    
     
     } else if (inputCur == "EUR" || inputCur == "eur"){
         if (outputCur == "EUR" || outputCur == "eur") {
@@ -81,6 +80,16 @@ int main () {
     } else {
         cout << "ERROR: Invalid input";
     }
-    return 0;
-}
     
+    char choice;
+    cout << "\nContinue? y/n: ";
+    cin >> choice;
+    if (choice == 'y' || choice == 'Y') {
+        cout << "------------------------";
+        cout << endl;
+        goto label;
+    } else if (choice == 'n' || choice == 'N') {
+        cout << "\nEnding program...";
+        return 0;
+    }
+}
