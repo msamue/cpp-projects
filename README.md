@@ -1,1 +1,1 @@
-C++ projects from courses
+C++ projects from courses and just for fun.
