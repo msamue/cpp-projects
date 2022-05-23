@@ -1,5 +1,5 @@
 /**
-* This program calculates currency exchange rates of USD, GBP, EUR, and JPY
+* This program calculates currency exchange rates of USD, GBP, EUR, and JPY as of 4/25/2022
 * @author msamue@github.com
 * Date: 4/26/2022
 **/
